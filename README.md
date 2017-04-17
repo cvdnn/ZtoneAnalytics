@@ -3,7 +3,7 @@
 ### Create a new repository
 
 ```
-git clone https://code.aliyun.com/ztone/ZtoneNetwork.git
+git clone https://code.aliyun.com/handy/ZtoneAnalytics.git
 cd ZtoneLang
 touch README.md
 git add README.md
@@ -16,7 +16,7 @@ git push -u origin master
 ```
 cd existing_folder
 git init
-git remote add origin https://code.aliyun.com/ztone/ZtoneNetwork.git
+git remote add origin https://code.aliyun.com/handy/ZtoneAnalytics.git
 git add .
 git commit
 git push -u origin master
