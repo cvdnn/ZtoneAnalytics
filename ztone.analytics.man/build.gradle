@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+android {
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    compile "com.android.support:appcompat-v7:${VERSION_ANDROID_SUPPORT}"
+
+    compile 'android.ztone:ztone-analytics:0.1.0'
+
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(id: RELEASE_REPO_ID, url: LOCAL_REPO_URL)
+        snapshotRepository(id: SNAPSHOTS_REPO_ID, url: LOCAL_REPO_URL)
+
+        pom.groupId = 'android.ztone'
+        pom.artifactId = 'ztone-analytics-man'
+        pom.version = '0.1.1'
+    }
+}

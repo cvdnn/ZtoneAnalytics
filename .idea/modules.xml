@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ZtoneAnalytics.iml" filepath="$PROJECT_DIR$/ZtoneAnalytics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ztone.analytics/ztone.analytics.iml" filepath="$PROJECT_DIR$/ztone.analytics/ztone.analytics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ztone.analytics.man/ztone.analytics.man.iml" filepath="$PROJECT_DIR$/ztone.analytics.man/ztone.analytics.man.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,72 @@
+/**
+ * 编译环境统一
+ */
+
+project.subprojects { p ->
+    p.afterEvaluate {
+        if (p.hasProperty('android')) {
+            generateBuildConfigurations p.android
+            generateSupportConfigurations p
+            generateTypeConfigurations p.android
+            generateLintOptionsConfigurations p.android
+        }
+    }
+}
+
+// 保持android编译版本一致
+void generateBuildConfigurations(def android) {
+    android.compileSdkVersion = 25
+    android.buildToolsVersion = '25.0.2'
+    android.defaultConfig.minSdkVersion = 14
+    android.defaultConfig.targetSdkVersion = 22
+}
+
+// 保持Support包版本一致
+void generateSupportConfigurations(Project p) {
+    def supportVersion = '25.3.0'
+    def compileConfig = p.configurations.compile
+    def supportDependencies = []
+
+    compileConfig.dependencies.each { d ->
+        if (d.group == 'com.android.support' && d.version != supportVersion) {
+            supportDependencies.add(d)
+        }
+    }
+
+    compileConfig.dependencies.removeAll(supportDependencies)
+    supportDependencies.each { d ->
+        p.dependencies.add('compile', "$d.group:$d.name:$supportVersion")
+    }
+}
+
+// build type
+void generateTypeConfigurations(def android) {
+    // debug
+    def debugBuildType = android.buildTypes.find {
+        it.name == 'debug'
+    }
+
+    if (debugBuildType) {
+        debugBuildType.debuggable true
+    }
+
+    //release
+    def releaseBuildType = android.buildTypes.find {
+        it.name == 'release'
+    }
+
+    if (releaseBuildType) {
+        releaseBuildType.debuggable false
+
+        releaseBuildType.proguardFiles android.getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+}
+
+// build type
+void generateLintOptionsConfigurations(def android) {
+    android.lintOptions.abortOnError false
+    android.lintOptions.checkAllWarnings false
+    android.lintOptions.checkReleaseBuilds false
+    android.lintOptions.ignoreWarnings true
+    android.lintOptions.quiet true
+}
